@@ -4,6 +4,7 @@ var React = require('react');
 var TodoList = require('TodoList');
 var AddTodo = require('AddTodo');
 var TodoSearch = require('TodoSearch');
+var uuid = require('uuid');
 
 var TodoApp = React.createClass ({
   getInitialState: function (){
@@ -13,13 +14,13 @@ var TodoApp = React.createClass ({
       searchText: '',
       todos: [
         {
-          id: 1,
+          id: uuid(),
           text: 'Walk the dog'
         }, {
-          id:2,
+          id: uuid(),
           text: 'Clean the yard'
         }, {
-          id:3,
+          id: uuid(),
           text: 'Clean the house'
         }
       ]
@@ -27,7 +28,16 @@ var TodoApp = React.createClass ({
   },
   // Get the prop value from the input form in AddTodo.jsx
   handleAddTodo: function (text) {
-    alert('new test ' + text);
+    // alert('new test ' + text);
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        {
+          id:  uuid(),
+          text: text
+        }
+      ]
+    });
   },
   handleSearch: function(showCompleted, searchText) {
     this.setState({
