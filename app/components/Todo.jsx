@@ -3,7 +3,7 @@ var moment = require('moment');
 
 var Todo = React.createClass({
   render: function(){
-    var {id, text, completed, createdAt, compleatedAt} = this.props;
+    var {id, text, completed, createdAt, completedAt} = this.props;
     var todoClassName = completed ? 'todo todo-completed' : 'todo';
     var renderDate = () => {
       var message = 'Created ';
@@ -11,7 +11,7 @@ var Todo = React.createClass({
 
       if (completed) {
         message = 'Completed ';
-        timestamp = compleatedAt;
+        timestamp = completedAt;
       }
 
       return message + moment.unix(timestamp).format('MMM Do YYYY @ h:mm a');
