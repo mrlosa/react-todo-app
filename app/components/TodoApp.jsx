@@ -1,10 +1,13 @@
 // TodoApp is going to pass the array (todos) onto TodoList, and TodoList is going to render multiple Todo
 
 var React = require('react');
+var uuid = require('uuid');
+
 var TodoList = require('TodoList');
 var AddTodo = require('AddTodo');
 var TodoSearch = require('TodoSearch');
-var uuid = require('uuid');
+var TodoAPI = require('TodoAPI');
+
 
 var TodoApp = React.createClass ({
   getInitialState: function (){
@@ -12,22 +15,13 @@ var TodoApp = React.createClass ({
       // set default values
       showCompleted: false,
       searchText: '',
-      todos: [
-        {
-          id: uuid(),
-          text: 'Walk the dog',
-          completed: true
-        }, {
-          id: uuid(),
-          text: 'Clean the yard',
-          completed: true
-        }, {
-          id: uuid(),
-          text: 'Clean the house',
-          completed: false
-        }
-      ]
-    }
+      // Fetch the todos
+      todos: TodoAPI.getTodos()
+    };
+  },
+  // Update the todos
+  componentDidUpdate : function () {
+    TodoAPI.setTodos(this.state.todos);
   },
   // Get the prop value from the input form in AddTodo.jsx
   handleAddTodo: function (text) {
