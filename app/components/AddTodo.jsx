@@ -1,9 +1,12 @@
 var React = require('react');
+var {connect} = require('react-redux');
+var actions = require('actions');
 
-var AddTodo = React.createClass ({
+export var AddTodo = React.createClass ({
   handleSubmit: function(e){
     // this is going to prevent reloading, we are going to handle this w react
     e.preventDefault();
+    var {dispatch} = this.props;
     var todoText = this.refs.todoText.value;
     // we don't need any special validation
     // we just need to see if at least one character input
@@ -12,7 +15,7 @@ var AddTodo = React.createClass ({
       this.refs.todoText.value='';
       // get the value as props for the text we want to use
       // onAddTodo is the props value that is going to be pass to TodoApp.jsx
-      this.props.onAddTodo(todoText);
+      dispatch(actions.addTodo(todoText));
 
     }else {
       // if invalid data, put cursor back into the input field automatically
@@ -31,4 +34,4 @@ var AddTodo = React.createClass ({
   }
 });
 
-module.exports = AddTodo;
+export default connect()(AddTodo);
